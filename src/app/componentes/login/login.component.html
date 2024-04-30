@@ -1,1 +1,16 @@
-<p>login works!</p>
+<div class="container-fluid">
+
+    <div class="row">
+        
+        <p class="offset-3 col-3">Usuario </p> <input  class="col-3" type="text" [(ngModel)]="usuario.nombre" >
+    </div>
+    <div class="row">
+        
+        <p class="offset-3 col-3" >contraseña</p> <input class="col-3" type="password" [(ngModel)]="usuario.password" >
+    </div>
+    <div class="row">
+        <input  class="offset-3 col-6 btn btn-primary" type="button" (click)="login()"  value="Ingresar">
+        <a  class="offset-3 col-6 btn btn-primary" [routerLink]="'/principal/registro'" >registrar</a>        
+        
+    </div>
+</div>
