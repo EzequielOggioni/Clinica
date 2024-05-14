@@ -1,19 +1,38 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Usuario } from '../entidades/usuario';
+import { User } from '../entidades/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  constructor() {
+  private APIURL:string =  "https://egos-clinicaapi.mdbgo.io";
+
+  constructor(public http:HttpClient ) {
     this.listaUsuario = JSON.parse(localStorage.getItem('usuarios') || '[]');
      this.setLogueado()
   }
 
-  public usuarioLogueado: Usuario = { nombre: '', password: '', mail: '' };
+  public mostrarAPi() {
+    return this.http.get(this.APIURL  + "/pruebajson");
+  }
 
-  public listaUsuario: Usuario[] = [];
+  public loginEnApi(usuario:User){
+    return this.http.post(this.APIURL  + "/login",usuario);
+  }
+
+  public setLogueadoXApi(usuario:User){
+    this.usuarioLogueado = usuario;
+  }
+
+  public registrar(usuario:User){
+    return this.http.post(this.APIURL  + "/insertar",usuario);
+  }
+
+  public usuarioLogueado: User = { nombre: '', password: '', mail: '', usuario:'', apellido: '', nacimiento: new Date() };
+
+  public listaUsuario: User[] = [];
 
   public estoyLogueado() :boolean{
     return this.usuarioLogueado.nombre != '';

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { Usuario } from '../../entidades/usuario';
+import { User } from '../../entidades/usuario';
 import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { UsuarioService } from '../../servicios/usuario.service';
 export class RegistroComponent {
   
   
-  public usuario:Usuario = {nombre:'', password:'', mail:'' };
+  public usuario:User = {nombre:'', password:'', mail:'', usuario: '', apellido: '', nacimiento: new Date()  };
   public password2:string= '';
   /**
    *
@@ -30,10 +30,20 @@ export class RegistroComponent {
       
     }
     
-    public registrar(){
-      this.us.listaUsuario.push(this.usuario);
-      localStorage.setItem('usuarios', JSON.stringify(this.us.listaUsuario));
-      this.us.listaUsuario= JSON.parse(JSON.stringify(this.us.listaUsuario)) ;
-      this.router.navigateByUrl('/principal');
+  //   public registrar(){
+  //     this.us.listaUsuario.push(this.usuario);
+  //     localStorage.setItem('usuarios', JSON.stringify(this.us.listaUsuario));
+  //     this.us.listaUsuario= JSON.parse(JSON.stringify(this.us.listaUsuario)) ;
+  //     
+  // }
+  public registrarEnApi(){
+    this.us.registrar(this.usuario).subscribe(
+      x =>{ 
+       console.log(x);
+       this.us.setLogueadoXApi(<User> x);
+       this.router.navigateByUrl('/principal');
+      }  
+     );
   }
+
 }
