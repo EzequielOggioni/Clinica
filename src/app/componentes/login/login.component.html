@@ -1,5 +1,6 @@
 <div class="container-fluid">
-
+    
+    
     <div class="row">
         
         <p class="offset-3 col-3">Usuario </p> <input  class="col-3" type="text" [(ngModel)]="usuario.nombre" >
@@ -13,6 +14,35 @@
         <a  class="offset-3 col-6 btn btn-primary" [routerLink]="'/principal/registro'" >registrar</a>        
         
     </div>
+{{this.usuairos.length}} {{(this.usuairos| filtrarUsuarios :  valorfiltro ).length}}
+
+    <div class="row">
+        
+        <p class="offset-3 col-3">filtro</p> <input  class="col-3" type="text" [(ngModel)]="valorfiltro" >
+    
+    </div>
+
+    <div *ngFor="let turno of this.buscarDisponibles() | quitarusados: turnosusados">
+            {{turno.fecha|date: 'dd/MM/yyy'}} - {{turno.hora}}
+    </div> 
+
+    <div *ngFor="let usuario of this.usuairos | filtrarUsuarios :  valorfiltro">
+    
+        <div class="row">
+        {{usuario.nacimiento|date: 'EEEE, dd/MM/yyyy' }}
+            <p class=" col-2">Usuario </p> <input  class="col-2" type="text" [(ngModel)]="usuario.usuario" >
+            <p class=" col-2">Nombre </p> <input  class="col-2" type="text" [(ngModel)]="usuario.nombre" >
+            <p class=" col-2">Apellido </p> <input  class="col-2" type="text" [(ngModel)]="usuario.apellido" >
+        </div>
+        <div class="row">
+                
+            <p class=" col-3"></p> 
+        </div>
+        
+        
+
+    </div>
+    
+
 </div>
-<input type="button" (click)="prueba()" > 
-{{probando}}
+
